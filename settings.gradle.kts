@@ -1,3 +1,10 @@
+pluginManagement {
+    repositories {
+        maven { setUrl("https://dl.bintray.com/kotlin/kotlin-eap") }
 
-rootProject.name = "recipe-manager-manual"
+        mavenCentral()
 
+        maven { setUrl("https://plugins.gradle.org/m2/") }
+    }
+}
+rootProject.name = "recipe-manager"
