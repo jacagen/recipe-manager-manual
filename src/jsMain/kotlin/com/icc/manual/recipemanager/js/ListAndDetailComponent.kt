@@ -17,20 +17,39 @@ val ListAndDetailComponent = functionalComponent<ListAndDetailProps> {
     table {
         tbody {
             tr {
+
+                /* Recipe list & "new" button */
                 td {
-                    form {
-                        button(type = ButtonType.button) {
-                            attrs.onClickFunction = plusClickHandler
-                            +"+"
+                    table {
+                        tbody {
+                            /* Recipe list */
+                            tr {
+                                td {
+                                    child(RecipeListComponent)
+                                }
+                            }
+
+                            /* New button etc. */
+                            tr {
+                                td {
+                                    form {
+                                        button(type = ButtonType.button) {
+                                            attrs.onClickFunction = plusClickHandler
+                                            +"+"
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
+
+                /* New recipe entry */
                 td {
                     child(NewRecipeComponent)
                 }
             }
         }
     }
-
 
 }

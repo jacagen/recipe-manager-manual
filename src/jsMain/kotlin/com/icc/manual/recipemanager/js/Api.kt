@@ -16,6 +16,9 @@ val jsonClient = HttpClient {
     install(JsonFeature) { serializer = KotlinxSerializer() }
 }
 
+suspend fun getRecipes(): List<Recipe> {
+    return jsonClient.get(endpoint + recipeEndpoint)
+}
 suspend fun addRecipe(recipe: Recipe) {
     jsonClient.post<Unit>(endpoint + recipeEndpoint) {
         contentType(ContentType.Application.Json)

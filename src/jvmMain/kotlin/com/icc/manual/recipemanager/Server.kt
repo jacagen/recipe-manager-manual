@@ -47,6 +47,9 @@ fun main() {
             }
 
             route("/recipe") {
+                get {
+                    call.respond(collection.find().toList())
+                }
                 post {
                     val recipe = call.receive<Recipe>()
                     println("Received recipe $recipe")
