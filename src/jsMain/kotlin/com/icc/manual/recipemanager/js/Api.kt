@@ -17,12 +17,19 @@ val jsonClient = HttpClient {
 }
 
 suspend fun getRecipes(): List<Recipe> {
+    // TODO We seem to constantly read recipes from Mongo--why??
+    console.log("Getting recipes from DB")
+    //Throwable().printStackTrace()
     return jsonClient.get(endpoint + recipeEndpoint)
 }
+
+suspend fun getRecipe(id: Int): Recipe {
+    return jsonClient.get("$endpoint$recipeEndpoint/$id")
+}
+
 suspend fun addRecipe(recipe: Recipe) {
-    jsonClient.post<Unit>(endpoint + recipeEndpoint) {
+    jsonClient.post<String>(endpoint + recipeEndpoint) {
         contentType(ContentType.Application.Json)
         body = recipe
-
     }
 }

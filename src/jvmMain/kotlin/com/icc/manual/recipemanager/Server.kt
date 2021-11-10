@@ -11,6 +11,7 @@ import io.ktor.serialization.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import org.litote.kmongo.coroutine.coroutine
+import org.litote.kmongo.eq
 import org.litote.kmongo.reactivestreams.KMongo
 
 val connectionString: ConnectionString? = System.getenv("MONGODB_URI")?.let {
@@ -49,6 +50,12 @@ fun main() {
             route("/recipe") {
                 get {
                     call.respond(collection.find().toList())
+                }
+                get("/{id}") {
+                    val id = call.parameters["id"]!!.toInt()
+                    call.respond(
+                        collection.findOne(Recipe::id eq id)!!
+                    )
                 }
                 post {
                     val recipe = call.receive<Recipe>()

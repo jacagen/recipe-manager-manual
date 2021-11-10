@@ -4,6 +4,7 @@ import com.icc.manual.recipemanager.model.Recipe
 import kotlinx.coroutines.launch
 import kotlinx.html.ButtonType
 import kotlinx.html.InputType
+import kotlinx.html.hidden
 import kotlinx.html.js.onChangeFunction
 import kotlinx.html.js.onClickFunction
 import org.w3c.dom.HTMLInputElement
@@ -13,9 +14,11 @@ import react.functionalComponent
 import react.useState
 import scope
 
-external interface InputProps : RProps
+external interface InputProps : RProps {
+    var onCreatedNewRecipe: (Int) -> Unit
+}
 
-val NewRecipeComponent = functionalComponent<InputProps> {
+val NewRecipeComponent = functionalComponent<InputProps> { props ->
     var newRecipe by useState(Recipe())
 
     table {
@@ -72,6 +75,7 @@ val NewRecipeComponent = functionalComponent<InputProps> {
                             newRecipe = Recipe("", "")
                             scope.launch {
                                 addRecipe(recipeToSave)
+                                props.onCreatedNewRecipe(recipeToSave.id)
                             }
                         }
                     }
